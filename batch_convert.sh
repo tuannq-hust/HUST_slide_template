@@ -31,7 +31,7 @@ convert_logo_dir() {
     echo "Converting logos in $dir ..."
     for f in *.png; do
       # 10% in each dimension ≈ 100x fewer pixels
-      convert "$f" -resize 10% -density 300 -quality 85 "${f%.png}.pdf" &
+      convert "$f" -resize 10% -density 100 -quality 50 "${f%.png}.pdf" &
     done
     wait
     echo "Done logos: $dir"
