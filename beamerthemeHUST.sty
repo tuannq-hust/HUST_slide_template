@@ -137,6 +137,12 @@
   \newcommand{\logoHpx}{2302} % Height adjusted to match hustwithtext ratio
   \hustbyheightfalse       % Scale by width
 }{}
+\ifdefstring{\template@logo}{husty70color}{
+  \def\slidelogo{assets/logo/hustlogo_y70.pdf}
+  \newcommand{\logoWpx}{1500} % Original width (px)
+  \newcommand{\logoHpx}{1500} % Height adjusted to match hustwithtext ratio
+  \hustbyheightfalse       % Scale by width
+}{}
 % ==============================
 % End of Logo Configuration
 % ==============================
