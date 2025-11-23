@@ -38,12 +38,20 @@ convert_logo_dir() {
   )
 }
 
+# clean up
+# rm  $BASE_DIR/assets/blue_16x9/*.pdf $BASE_DIR/assets/blue_16x9/*.jpg \
+#     $BASE_DIR/assets/red_16x9/*.pdf $BASE_DIR/assets/red_16x9/*.jpg \
+#     $BASE_DIR/assets/blue_4x3/*.pdf $BASE_DIR/assets/blue_4x3/*.jpg \
+#     $BASE_DIR/assets/red_4x3/*.pdf $BASE_DIR/assets/red_4x3/*.jpg \
+#     $BASE_DIR/assets/logo/*.pdf $BASE_DIR/assets/logo/*.jpg
 # Run each group in background (parallel between folders)
 convert_dir      "$BASE_DIR/assets/blue_16x9" "1920x1080" &
 convert_dir      "$BASE_DIR/assets/red_16x9"  "1920x1080" &
 convert_dir      "$BASE_DIR/assets/blue_4x3"  "1440x1080" &
 convert_dir      "$BASE_DIR/assets/red_4x3"   "1440x1080" &
-convert_logo_dir "$BASE_DIR/assets/logo"      &
+# convert_logo_dir "$BASE_DIR/assets/logo"      &
+# Instead of converting logo from png images, we extract them from the hust logo design file
+python pdf_crop.py --csv crop_data.csv      &
 
 # Wait for all background jobs
 wait
