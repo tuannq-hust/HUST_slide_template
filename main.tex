@@ -1,7 +1,6 @@
 % Supported aspectratio 43|169, default is 169
 \documentclass[aspectratio=169]{beamer}
 \usetheme[theme=blue,logo=hustwithtext]{HUST} % <-- this matches beamerthemeHUST.sty
-\newcommand{\OUTDIR}{./build}
 % \usepackage{cmap}
 % \usepackage{accsupp}
 \usepackage{catchfile}
@@ -12,7 +11,7 @@
 \usepackage{lmodern}
 \usepackage{cmap}    % cải thiện copy/paste text từ PDF
 \usepackage{upquote}
-\usepackage[outputdir=\OUTDIR]{minted}
+\usepackage{minted}
 \setminted{
   breaklines=false,
   autogobble=false,
