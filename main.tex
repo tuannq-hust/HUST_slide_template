@@ -1,17 +1,11 @@
 % Supported aspectratio 43|169, default is 169
 \documentclass[aspectratio=169]{beamer}
-\usetheme[theme=blue,logo=hustwithtext]{HUST} % <-- this matches beamerthemeHUST.sty
-% \usepackage{cmap}
-% \usepackage{accsupp}
-\usepackage{catchfile}
-% \usepackage{lmodern}
-% \usepackage{fontspec}
-% \setmonofont{Latin Modern Mono}[Ligatures=NoCommon]
-\usepackage{embedfile}
+\usetheme[theme=blue,logo=hustwithtext]{HUST}
+
 \usepackage{lmodern}
 \usepackage{cmap}    % cải thiện copy/paste text từ PDF
 \usepackage{upquote}
-\usepackage{minted}
+\usepackage[outputdir=build]{minted}
 \setminted{
   breaklines=false,
   autogobble=false,
@@ -23,20 +17,15 @@
   baselinestretch=1,
   fontsize=\normalsize
 }
-\usepackage{accsupp}   % cung cấp ActualText cho PDF copy
-\usepackage{catchfile} % đọc nội dung file vào macro
 
 
 %----------------- Ngôn ngữ & font -----------------
 \usepackage[T5]{fontenc}        % Hỗ trợ tiếng Việt
-% \setmainfont{assets/fonts/LATO-BLACK.TTF} % Nếu bạn thiết lập font hệ thống
 
 %----------------- Gói tiện ích thêm -----------------
 \usepackage{amsmath,amssymb}    % Toán
 \usepackage{booktabs}           % Bảng đẹp hơn
 \usepackage{listings}           % Hiển thị code
-% \usepackage{tikz}               % Đã dùng cho \placecontent (đa số beamer đã load sẵn)
-% \usetikzlibrary{calc}
 
 %----------------- Macro hỗ trợ đặt nội dung theo toạ độ -----------------
 \newcommand{\placecontent}[4]{%
@@ -83,7 +72,7 @@
 %---------------------------------------------
 % 1. Title slide - có thể tuỳ biến thêm
 %---------------------------------------------
-{\HUSTUseBackground{onelove.pdf}
+{\HUSTUseBackground{onelove}
 \begin{frame}
   \ifdefstring{\insertaspectratio}{169}{
     \HUSTCornerImage[0.14]{assets/logo/soict_vi_h.pdf}
@@ -264,9 +253,9 @@ nhưng dùng \texttt{figure + caption} giúp slide dễ đọc hơn.
 \section{Chèn code}
 
 \begin{frame}[fragile]{Chèn code với gói \texttt{minted}}
-% [fragile] là bắt buộc khi frame có môi trường verbatim (listings)
+% [fragile] là bắt buộc khi frame có môi trường verbatim
 
-Ví dụ đoạn code C:
+Ví dụ đoạn code Python:
 
 \begin{minted}[fontsize=\small, breaklines, autogobble]{python}
 def fib(n):
@@ -287,7 +276,7 @@ Gợi ý:
 
 \begin{frame}[fragile]{Chèn code từ file}
 \inputminted[
-fontsize=\scriptsize,  % or \scriptsize
+fontsize=\scriptsize,
 frame=single,
 framesep=2mm,
 breaklines,
@@ -326,7 +315,7 @@ obeytabs                  % keep tab logic consistent
 %=============================================
 \section{Kết luận}
 
-{\HUSTUseBackground{theme_hust_oneside.pdf}
+{\HUSTUseBackground{theme_hust_oneside}
 \begin{frame}
   \ifdefstring{\insertaspectratio}{169}{
     \placecontent{0.355\paperwidth}{0.410\paperheight}{0.640\paperwidth}{
@@ -342,7 +331,7 @@ obeytabs                  % keep tab logic consistent
   }{}
 \end{frame}
 }
-{\HUSTUseBackground{theme_hust_oneside.pdf}
+{\HUSTUseBackground{theme_hust_oneside}
 \begin{frame}
   \ifdefstring{\insertaspectratio}{169}{
     \placecontent{0.355\paperwidth}{0.320\paperheight}{0.640\paperwidth}{

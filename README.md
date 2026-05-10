@@ -17,7 +17,7 @@ This template focuses on **visual consistency, simplicity, and customization**, 
 - Automatic or manual **aspect ratio detection** (`auto`, `169`, or `43`).  
 - Control over **backgrounds, logos, and branding slides** through simple commands:
   ```latex
-  \HUSTUseBackground{theme.pdf}
+  \HUSTUseBackground{theme}
   \HUSTInsertBrandSlide
   \HUSTInsertThemeSlide
   \HUSTClearBackground
@@ -34,6 +34,47 @@ This template focuses on **visual consistency, simplicity, and customization**, 
 | `theme`        | `blue`   | Choose between `blue` or `red` color scheme |
 | `aspectratio`  | `auto`   | Detect from Beamer (`169` or `43`), or specify manually |
 | `logo`         | `logo`   | Select logo variant (`logo`, `logowithtext`, `hust`, `hustwithtext`, etc.) |
+| `assetext`     | `pdf`    | Background asset extension for extensionless names (`pdf`, `png`, or `jpg`) |
+
+The theme looks for backgrounds in:
+
+```text
+assets/<theme>_<aspectratio>/<filename>
+```
+
+For example, with `theme=blue`, `aspectratio=169`, and `assetext=pdf`, this command:
+
+```latex
+\HUSTUseBackground{theme}
+```
+
+resolves to:
+
+```text
+assets/blue_16x9/theme.pdf
+```
+
+You can still pass an explicit extension, such as `\HUSTUseBackground{theme.png}`, when one slide should override `assetext`.
+
+---
+
+## 🛠️ Build
+
+This template uses `minted` for syntax-highlighted code, so builds require shell escape and Python Pygments (`pygmentize`).
+
+Install the usual LaTeX dependencies plus Pygments:
+
+```bash
+python3 -m pip install Pygments
+```
+
+Then build with:
+
+```bash
+latexmk main.tex
+```
+
+The repo-local `latexmkrc` writes output to `build/` and enables the required `pdflatex -shell-escape` flags.
 
 ---
 

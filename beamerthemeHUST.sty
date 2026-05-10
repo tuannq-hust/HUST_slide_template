@@ -1,4 +1,13 @@
 \ProvidesPackage{beamerthemeHUST}
+
+% Dependencies
+\RequirePackage{kvoptions}
+\RequirePackage{etoolbox}
+\RequirePackage{graphicx}
+\RequirePackage{xparse}
+\RequirePackage{xstring}
+\RequirePackage{tikz}
+\usetikzlibrary{calc}
 % ==============================
 % Package Options Configuration
 % ==============================
@@ -23,11 +32,6 @@
 \useinnertheme[shadow=true]{rounded}
 % \useoutertheme{infolines}
 % \usecolortheme{beaver}
-
-% Dependencies
-\RequirePackage{kvoptions}
-\RequirePackage{etoolbox}
-\RequirePackage{graphicx}
 
 % ==============================
 % HUST brand colors
@@ -70,6 +74,25 @@
 % Joining together
 \newcommand*\HUSTBuildAssetPath[1]{%
   \edef\HUST@AssetPath{assets/\HUSTThemeFolder\string_\HUSTAspectFolder/#1}%
+}
+\newcommand*\HUSTBuildBackgroundPath[1]{%
+  \IfEndWith{#1}{.pdf}{%
+    \HUSTBuildAssetPath{#1}%
+  }{%
+    \IfEndWith{#1}{.png}{%
+      \HUSTBuildAssetPath{#1}%
+    }{%
+      \IfEndWith{#1}{.jpg}{%
+        \HUSTBuildAssetPath{#1}%
+      }{%
+        \IfEndWith{#1}{.jpeg}{%
+          \HUSTBuildAssetPath{#1}%
+        }{%
+          \HUSTBuildAssetPath{#1.\template@assetext}%
+        }%
+      }%
+    }%
+  }%
 }
 % ==============================
 % End of Construct correct path to assets
@@ -153,12 +176,12 @@
 % --- Use an image as background: pass only the filename (no full path) ---
 % ------ Simple variant: fixed width=\paperwidth
 \newcommand{\HUSTUseBackground}[1]{%
-  \HUSTBuildAssetPath{#1}%
+  \HUSTBuildBackgroundPath{#1}%
   \usebackgroundtemplate{\includegraphics[width=\paperwidth]{\HUST@AssetPath}}%
 }
 % ------ Optional variant: allow passing options to \includegraphics
 \newcommand{\HUSTUseBackgroundOpt}[2][]{%
-  \HUSTBuildAssetPath{#2}%
+  \HUSTBuildBackgroundPath{#2}%
   \usebackgroundtemplate{\includegraphics[#1]{\HUST@AssetPath}}%
 }
 % --- Clear background so subsequent slides revert to the default
@@ -169,7 +192,7 @@
 % --- Insert a brand cover slide (scoped; background does not leak to next slides)
 \newcommand{\HUSTInsertBrandSlide}{%
   \begingroup
-  \HUSTUseBackground{theme_hust.pdf}
+  \HUSTUseBackground{theme_hust}
   \begin{frame}[plain]
   \end{frame}
   \endgroup
@@ -177,7 +200,7 @@
 % --- Insert a theme cover slide (scoped; background does not leak to next slides)
 \newcommand{\HUSTInsertThemeSlide}{%
   \begingroup
-  \HUSTUseBackground{theme.pdf}
+  \HUSTUseBackground{theme}
   \begin{frame}[plain]
   \end{frame}
   \endgroup
@@ -185,7 +208,7 @@
 % --- Insert an oneside cover slide (scoped; background does not leak to next slides)
 \newcommand{\HUSTInsertOnesideSlide}{%
   \begingroup
-  \HUSTUseBackground{theme_hust_oneside.pdf}
+  \HUSTUseBackground{theme_hust_oneside}
   \begin{frame}[plain]
   \end{frame}
   \endgroup
@@ -261,12 +284,6 @@
 % ==============================
 % End of Default slide template settings
 % ==============================
-
-% ==============================
-% Bottom footer + top bars (TikZ background canvas)
-% ==============================
-\RequirePackage{tikz}
-\usetikzlibrary{calc}
 
 \setbeamertemplate{background canvas}{%
   \begin{tikzpicture}[remember picture,overlay]

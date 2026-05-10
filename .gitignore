@@ -1,0 +1,19 @@
+# LaTeX build outputs
+build/
+_minted-*/
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.pyg
+*.w18
+
+# Editor/OS noise
+.DS_Store
+*~
