@@ -78,6 +78,30 @@ The repo-local `latexmkrc` writes output to `build/` and enables the required `p
 
 ---
 
+## 🖼️ Asset Tools
+
+Logo PDFs can be regenerated from the source HUST design PDFs:
+
+```bash
+./crop_logos.sh --dry-run
+./crop_logos.sh
+```
+
+The crop utility reads `crop_data.csv` and requires PyMuPDF:
+
+```bash
+python3 -m pip install pymupdf
+```
+
+You can also call the Python tool directly:
+
+```bash
+python3 pdf_crop.py --run-default --dry-run
+python3 pdf_crop.py input.pdf output.pdf --page_index 0 --crop_rect 10 10 100 100
+```
+
+---
+
 ## 🧱 Commands Reference
 
 | Command | Purpose |
