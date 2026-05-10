@@ -1,33 +1,33 @@
-% Supported aspectratio 43|169, default is 169
-\documentclass[aspectratio=169]{beamer}
+% Supported aspectratio: 43 or 169. The default project build uses 169.
+\documentclass[aspectratio=43]{beamer}
+
+% Main template options:
+% - theme: blue | red
+% - logo: logo | logowithtext | logowithtextvi | logowithtexten |
+%         hust | hustwithtext | hustwithtexten | hustwithtextenlong | husty70color
+% - assetext: pdf | png | jpg
 \usetheme[theme=blue,logo=hustwithtext,assetext=pdf]{HUST}
 
 \usepackage{lmodern}
-\usepackage{cmap}    % cải thiện copy/paste text từ PDF
+\usepackage{cmap}
+\usepackage[T5]{fontenc}
 \usepackage{upquote}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
 \usepackage[outputdir=build]{minted}
+
 \setminted{
-  breaklines=false,
-  autogobble=false,
+  breaklines=true,
+  autogobble=true,
   obeytabs=true,
   tabsize=2,
-  linenos=true,
+  linenos=false,
   showspaces=false,
-  space=~,
   baselinestretch=1,
-  fontsize=\normalsize
+  fontsize=\small
 }
 
-
-%----------------- Ngôn ngữ & font -----------------
-\usepackage[T5]{fontenc}        % Hỗ trợ tiếng Việt
-
-%----------------- Gói tiện ích thêm -----------------
-\usepackage{amsmath,amssymb}    % Toán
-\usepackage{booktabs}           % Bảng đẹp hơn
-\usepackage{listings}           % Hiển thị code
-
-%----------------- Macro hỗ trợ đặt nội dung theo toạ độ -----------------
+% Helper for custom title/closing slides.
 \newcommand{\placecontent}[4]{%
   \tikz[remember picture,overlay]
     \node[anchor=north west]
@@ -35,314 +35,323 @@
       {\parbox{#3}{#4}};
 }
 
-%----------------- Định nghĩa box (Definition) -----------------
-% Cách 1: dùng môi trường "definition" của beamer
-% \theoremstyle{definition}
-% \newtheorem{definition}{Definition}
-
-% (Nếu muốn hộp màu custom, có thể dùng \begin{block}{Definition} ... )
-
-%----------------- Cấu hình hiển thị code -----------------
-\lstset{
-  basicstyle=\ttfamily\small,
-  keywordstyle=\color{blue},
-  commentstyle=\color{gray},
-  stringstyle=\color{red},
-  showstringspaces=false,
-  breaklines=true,
-  frame=single,
-  xleftmargin=1em,
-  xrightmargin=1em
-}
-
-%----------------- Tiêu đề bài giảng -----------------
-\title{HUST Beamer Template Guide}
-\subtitle{Hướng dẫn tạo slide: text, box, 2 cột, ảnh, bảng, code, tài liệu tham khảo}
-\author{SoICT - HUST}
+\title{Demo sử dụng HUST Beamer Template}
+\subtitle{Cấu hình theme, logo, nền slide và các bố cục thường dùng}
+\author{SoICT -- HUST}
 \date{}
 
 \begin{document}
 
-%---------------------------------------------
-% 0. Brand / Theme slide
-%---------------------------------------------
 \HUSTInsertBrandSlide
 \HUSTInsertThemeSlide
 
-%---------------------------------------------
-% 1. Title slide - có thể tuỳ biến thêm
-%---------------------------------------------
 {\HUSTUseBackground{onelove}
 \begin{frame}
   \ifdefstring{\insertaspectratio}{169}{
     \HUSTCornerImage[0.14]{assets/logo/soict_vi_h.pdf}
-
-    %----------Bạn có thể chỉnh text ở đây----------
-    \placecontent{0.5cm}{0.33\paperheight}{0.85\paperwidth}{
-        \color{\HUSTFrameTitleTextColor}\bfseries\fontsize{22pt}{30pt}\selectfont
-        \inserttitle
+    \placecontent{0.55cm}{0.32\paperheight}{0.84\paperwidth}{
+      \color{\HUSTFrameTitleTextColor}\bfseries\fontsize{21pt}{28pt}\selectfont
+      \inserttitle
     }
-    \placecontent{0.5cm}{0.60\paperheight}{0.5\paperwidth}{    % subtitle + author
-        \color{\HUSTFrameTitleTextColor}\fontsize{12pt}{14pt}\selectfont
-        \insertsubtitle\\[4pt]
-        \insertauthor
+    \placecontent{0.55cm}{0.58\paperheight}{0.58\paperwidth}{
+      \color{\HUSTFrameTitleTextColor}\fontsize{12pt}{15pt}\selectfont
+      \insertsubtitle\\[4pt]
+      \insertauthor
     }
   }{}
   \ifdefstring{\insertaspectratio}{43}{
     \HUSTCornerImage[0.1][0.35cm][-0.03]{assets/logo/04.pdf}
-
-    \placecontent{0.5cm}{0.33\paperheight}{0.80\paperwidth}{
-        \color{\HUSTFrameTitleTextColor}\bfseries\fontsize{18pt}{22pt}\selectfont
-        \inserttitle
+    \placecontent{0.5cm}{0.33\paperheight}{0.78\paperwidth}{
+      \color{\HUSTFrameTitleTextColor}\bfseries\fontsize{18pt}{22pt}\selectfont
+      \inserttitle
     }
-    \placecontent{0.5cm}{0.60\paperheight}{0.5\paperwidth}{    % subtitle + author
-        \color{\HUSTFrameTitleTextColor}\fontsize{12pt}{14pt}\selectfont
-        \insertsubtitle\\[4pt]
-        \insertauthor
+    \placecontent{0.5cm}{0.60\paperheight}{0.54\paperwidth}{
+      \color{\HUSTFrameTitleTextColor}\fontsize{11pt}{14pt}\selectfont
+      \insertsubtitle\\[4pt]
+      \insertauthor
     }
   }{}
 \end{frame}
 }
 
-%---------------------------------------------
-% 2. Tự động chèn Outline khi sang section mới
-%---------------------------------------------
 \AtBeginSection[]
 {
-    \begin{frame}<beamer>
-        \frametitle{Outline}
-        \tableofcontents[currentsection]
-    \end{frame}
+  \begin{frame}<beamer>{Nội dung phần này}
+    \tableofcontents[currentsection]
+  \end{frame}
 }
 
-%=============================================
-% SECTION: TEXT CƠ BẢN
-%=============================================
-\section{Slide nội dung cơ bản}
+\section{Bắt đầu nhanh}
 
-\begin{frame}{Slide nội dung cơ bản}
-% Hướng dẫn: dùng itemize để liệt kê ý chính
-\begin{itemize}
-  \item Dùng \texttt{\textbackslash begin\{itemize\}} để tạo danh sách gạch đầu dòng.
-  \item Bạn có thể lồng nhiều cấp \texttt{itemize} nếu cần.
-  \item Nên viết nội dung ngắn gọn, tránh quá nhiều chữ trên một slide.
-\end{itemize}
+\begin{frame}[fragile]{File tối thiểu}
+Một bài trình chiếu mới chỉ cần chọn lớp \texttt{beamer}, nạp theme HUST và viết nội dung trong \texttt{frame}.
+
+\begin{minted}{latex}
+\documentclass[aspectratio=169]{beamer}
+\usetheme[theme=blue,logo=hustwithtext,assetext=pdf]{HUST}
+
+\title{Tên bài trình bày}
+\author{Tên tác giả}
+
+\begin{document}
+\HUSTInsertBrandSlide
+\begin{frame}{Tiêu đề slide}
+  Nội dung chính của slide.
+% ... đóng frame ở đây
+\end{document}
+\end{minted}
 \end{frame}
 
-%=============================================
-% SECTION: DEFINITION BOX
-%=============================================
-\section{Definition box}
+\begin{frame}[fragile]{Build bằng latexmk}
+\texttt{latexmkrc} trong thư mục này đã cấu hình lệnh build chính cho template.
 
-% Cách 1: sử dụng môi trường definition
-\begin{frame}{Definition box với môi trường \texttt{definition}}
-\begin{definition}[Algorithm]
-An \alert{algorithm} is a finite sequence of well-defined instructions, typically used to solve a class of specific problems or perform a computation.
-\end{definition}
+\begin{minted}{bash}
+latexmk main.tex
+\end{minted}
 
-\vspace{0.7em}
-Gợi ý:
-\begin{itemize}
-  \item Bạn có thể đổi tên môi trường (\texttt{Definition} $\to$ \texttt{Định nghĩa}) bằng cách chỉnh lại \texttt{\textbackslash newtheorem}.
-  \item Có thể dùng thêm \texttt{\textbackslash alert\{\}} để nhấn mạnh.
-\end{itemize}
-\end{frame}
-
-% Cách 2: dùng block (nếu muốn style đồng bộ với theme)
-\begin{frame}{Definition box với \texttt{block}}
-\begin{block}{Definition: Complexity}
-The \emph{time complexity} of an algorithm describes how the runtime grows with the size of the input.
+\begin{block}{Ghi nhớ}
+Template đang dùng \texttt{minted}, vì vậy quy trình build cần hỗ trợ \texttt{-shell-escape}. Cấu hình này đã nằm trong \texttt{latexmkrc}; người dùng thường chỉ cần chạy \texttt{latexmk main.tex}.
 \end{block}
-
-\begin{exampleblock}{Example}
-The time complexity of binary search on a sorted array of size $n$ is $O(\log n)$.
-\end{exampleblock}
 \end{frame}
 
-%=============================================
-% SECTION: SLIDE 2 CỘT
-%=============================================
-\section{Slide hai cột}
+\section{Tùy chọn template}
 
-\begin{frame}{Slide hai cột với môi trường \texttt{columns}}
-\begin{columns}[T] % [T] = top aligned
+\begin{frame}[fragile]{Chọn màu, logo và định dạng asset}
+Các tùy chọn quan trọng nằm ngay trong dòng \texttt{\textbackslash usetheme}.
+
+\begin{minted}{latex}
+\usetheme[
+  theme=blue,          % blue hoặc red
+  logo=hustwithtext,   % biến thể logo ở footer
+  assetext=pdf         % pdf, png hoặc jpg
+]{HUST}
+\end{minted}
+
+\begin{itemize}
+  \item \texttt{theme} đổi hệ màu và thư mục nền tương ứng.
+  \item \texttt{logo} chọn logo xuất hiện ở thanh cuối slide.
+  \item \texttt{assetext} quyết định phần mở rộng mặc định cho ảnh nền.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Tỷ lệ slide}
+Tỷ lệ slide được chọn ở \texttt{documentclass}; theme sẽ tự tìm đúng thư mục asset.
+
+\begin{columns}[T]
   \begin{column}{0.48\textwidth}
-    \textbf{Cột 1: Nội dung lý thuyết}
-    \begin{itemize}
-      \item Mô tả khái niệm chính.
-      \item Đưa các định nghĩa, công thức.
-      \item Dùng cho phần text dài.
-    \end{itemize}
+    \textbf{Màn hình rộng}
+    \begin{minted}{latex}
+\documentclass[
+  aspectratio=169
+]{beamer}
+    \end{minted}
   \end{column}
   \begin{column}{0.48\textwidth}
-    \textbf{Cột 2: Ví dụ / Minh hoạ}
-    \begin{itemize}
-      \item Ví dụ cụ thể.
-      \item Hình vẽ, sơ đồ, kết quả chạy thử.
-      \item Gợi ý: có thể chèn ảnh hoặc bảng trong mỗi cột.
-    \end{itemize}
+    \textbf{Tỷ lệ 4:3}
+    \begin{minted}{latex}
+\documentclass[
+  aspectratio=43
+]{beamer}
+    \end{minted}
   \end{column}
 \end{columns}
-\end{frame}
 
-%=============================================
-% SECTION: CHÈN ẢNH
-%=============================================
-\section{Chèn ảnh}
-
-\begin{frame}{Chèn ảnh đơn giản}
-% Gợi ý: đảm bảo file ảnh nằm trong thư mục project, ví dụ assets/figures
-\begin{figure}
-  \centering
-  % Thay "assets/figures/example.png" bằng đường dẫn ảnh thật
-  \includegraphics[width=0.25\linewidth]{assets/logo/hustlogo_y70.pdf}
-  \caption{Ví dụ minh hoạ cho một hình ảnh (caption tùy chọn).}
-\end{figure}
-
-% Ghi chú cho người dùng:
 \vspace{0.5em}
-\textbf{Lưu ý:} Trong beamer, không nhất thiết phải dùng \texttt{figure}, 
-nhưng dùng \texttt{figure + caption} giúp slide dễ đọc hơn.
+Với \texttt{theme=blue} và \texttt{aspectratio=169}, nền mặc định được đọc từ \texttt{assets/blue\_16x9/}.
 \end{frame}
 
-\begin{frame}{Ảnh trong bố cục 2 cột}
+\begin{frame}[fragile]{Khi nào dùng PDF, PNG hoặc JPG?}
+\begin{itemize}
+  \item \texttt{assetext=pdf}: phù hợp nhất cho logo, nền vector và in ấn sắc nét.
+  \item \texttt{assetext=png}: phù hợp cho ảnh raster cần nền trong suốt.
+  \item \texttt{assetext=jpg}: phù hợp cho ảnh chụp hoặc nền raster lớn không cần trong suốt.
+\end{itemize}
+
+\begin{minted}{latex}
+% Dùng PDF cho toàn bộ nền không ghi phần mở rộng.
+\usetheme[assetext=pdf]{HUST}
+\HUSTUseBackground{theme}
+
+% Ghi đè từng slide bằng phần mở rộng cụ thể.
+\HUSTUseBackground{theme.png}
+\end{minted}
+\end{frame}
+
+\section{Nền và slide thương hiệu}
+
+\begin{frame}[fragile]{Các slide nền có sẵn}
+Các lệnh chèn slide thương hiệu đã được đóng gói sẵn để background không rò sang slide tiếp theo.
+
+\begin{minted}{latex}
+\HUSTInsertBrandSlide
+\HUSTInsertThemeSlide
+\HUSTInsertOnesideSlide
+\end{minted}
+
+\begin{itemize}
+  \item \texttt{BrandSlide}: slide thương hiệu đầy đủ.
+  \item \texttt{ThemeSlide}: slide chuyển phần hoặc mở đầu chủ đề.
+  \item \texttt{OnesideSlide}: nền một phía, tiện cho slide cảm ơn hoặc thông báo.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Đổi nền cho một nhóm slide}
+Dùng cặp ngoặc nhọn để giới hạn phạm vi background cho một slide hoặc một nhóm slide.
+
+\begin{minted}{latex}
+{\HUSTUseBackground{theme_hust_oneside}
+\begin{frame}{Thông báo quan trọng}
+  Nội dung đặt trên nền riêng.
+% ... đóng frame ở đây
+}
+\end{minted}
+
+\begin{block}{Thói quen nên dùng}
+Luôn giới hạn phạm vi khi chỉ muốn đổi nền tạm thời. Nếu cần xóa nền thủ công, dùng \texttt{\textbackslash HUSTClearBackground}.
+\end{block}
+\end{frame}
+
+{\HUSTUseBackground{theme_hust_oneside}
+\begin{frame}{Ví dụ nền riêng}
+  \begin{columns}[T]
+    \begin{column}{0.47\textwidth}
+      Slide này đang dùng nền \texttt{theme\_hust\_oneside}.
+    \end{column}
+    \begin{column}{0.47\textwidth}
+      Vì lệnh nằm trong một nhóm, các slide sau quay lại nền thông thường.
+    \end{column}
+  \end{columns}
+\end{frame}
+}
+
+\begin{frame}[fragile]{Đặt logo hoặc ảnh ở góc}
+\texttt{\textbackslash HUSTCornerImage} hữu ích cho title slide hoặc slide có nhãn đơn vị.
+
+\begin{minted}{latex}
+\HUSTCornerImage[0.14]{assets/logo/soict_vi_h.pdf}
+
+% Tùy chọn đầy đủ:
+\HUSTCornerImage[height][x-offset][y-fraction]{file}
+\end{minted}
+
+\begin{center}
+  \includegraphics[height=0.18\paperheight]{assets/logo/soict_vi_h.pdf}
+\end{center}
+\end{frame}
+
+\section{Bố cục nội dung}
+
+\begin{frame}{Danh sách và nhấn mạnh}
+\begin{itemize}
+  \item Mỗi slide nên tập trung vào một ý chính.
+  \item Dùng \alert{alert} để nhấn mạnh từ khóa quan trọng.
+  \item Ưu tiên câu ngắn; phần giải thích dài nên đưa vào lời nói hoặc tài liệu kèm theo.
+\end{itemize}
+
+\begin{block}{Mẫu block}
+Block phù hợp cho định nghĩa, kết luận tạm thời hoặc thông báo cần nổi bật.
+\end{block}
+\end{frame}
+
+\begin{frame}{Hai cột}
 \begin{columns}[T]
-  \begin{column}{0.5\textwidth}
-    \textbf{Mô tả hình:}
+  \begin{column}{0.48\textwidth}
+    \textbf{Luồng trình bày}
     \begin{itemize}
-      \item Hình minh hoạ cấu trúc dữ liệu.
-      \item Có thể viết giải thích chi tiết bên cạnh.
+      \item Bối cảnh
+      \item Ý tưởng chính
+      \item Kết quả
     \end{itemize}
   \end{column}
-  \begin{column}{0.5\textwidth}
+  \begin{column}{0.48\textwidth}
+    \textbf{Minh họa}
     \begin{center}
-      \includegraphics[width=0.7\linewidth]{assets/logo/hustlogo_y70.pdf}
+      \includegraphics[height=0.22\paperheight]{assets/logo/hustlogo_y70.pdf}
     \end{center}
   \end{column}
 \end{columns}
 \end{frame}
 
-%=============================================
-% SECTION: CHÈN BẢNG
-%=============================================
-\section{Chèn bảng}
-
-\begin{frame}{Bảng với \texttt{tabular} và \texttt{booktabs}}
+\begin{frame}{Bảng với booktabs}
 \begin{table}
   \centering
   \begin{tabular}{lcc}
     \toprule
-    \textbf{Thuật toán} & \textbf{Best case} & \textbf{Worst case} \\
+    \textbf{Mục} & \textbf{PDF} & \textbf{PNG/JPG} \\
     \midrule
-    Bubble Sort  & $O(n)$   & $O(n^2)$ \\
-    Merge Sort   & $O(n \log n)$ & $O(n \log n)$ \\
-    Quick Sort   & $O(n \log n)$ & $O(n^2)$ \\
+    Logo vector & Rất tốt & Tùy độ phân giải \\
+    Ảnh chụp & Không cần thiết & Tốt \\
+    Nền trong suốt & Tốt với PDF/PNG & PNG tốt hơn JPG \\
     \bottomrule
   \end{tabular}
-  \caption{Ví dụ bảng so sánh độ phức tạp thời gian.}
 \end{table}
 
 \vspace{0.5em}
-\textbf{Gợi ý:} Dùng \texttt{booktabs} cho đường kẻ \texttt{\textbackslash toprule},
-\texttt{\textbackslash midrule}, \texttt{\textbackslash bottomrule} giúp bảng đẹp hơn.
+\texttt{booktabs} giúp bảng gọn và dễ đọc hơn trên slide.
 \end{frame}
 
-%=============================================
-% SECTION: CHÈN CODE
-%=============================================
-\section{Chèn code}
+\begin{frame}[fragile]{Code ngắn viết trực tiếp}
+Frame chứa code cần thêm tùy chọn \texttt{fragile}.
 
-\begin{frame}[fragile]{Chèn code với gói \texttt{minted}}
-% [fragile] là bắt buộc khi frame có môi trường verbatim
+\begin{minted}{python}
+def greet(name):
+  return f"Xin chao, {name}!"
 
-Ví dụ đoạn code Python:
-
-\begin{minted}[fontsize=\small, breaklines, autogobble]{python}
-def fib(n):
-  # Cấu trúc dữ liệu và Thuật toán
-  a, b = 0, 1
-  for _ in range(n):
-    a, b = b, a + b
-  return a
-print("hello world ", fib(20))
+print(greet("HUST"))
 \end{minted}
-
-Gợi ý:
-\begin{itemize}
-  \item Thêm thuộc tính \texttt{language=Python}, \texttt{language=Java}, v.v. cho các ngôn ngữ khác.
-  \item Có thể định nghĩa \texttt{\textbackslash lstdefinestyle} để đồng bộ style trong toàn bộ slide.
-\end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Chèn code từ file}
+\begin{frame}[fragile]{Code dài đọc từ file}
+Với đoạn code dài, nên đặt trong file riêng để source slide gọn hơn.
+
 \inputminted[
-fontsize=\scriptsize,
-frame=single,
-framesep=2mm,
-breaklines,
-breakanywhere,
-tabsize=2,                % reduce wide indent
-obeytabs                  % keep tab logic consistent
+  fontsize=\scriptsize,
+  frame=single,
+  framesep=2mm,
+  breaklines,
+  breakanywhere,
+  tabsize=2,
+  obeytabs
 ]{C}{resources/example_01.c}
 \end{frame}
 
-%=============================================
-% SECTION: TÀI LIỆU THAM KHẢO
-%=============================================
-\section{Tài liệu tham khảo}
+\section{Hoàn thiện bài trình chiếu}
 
-% Cách đơn giản: dùng thebibliography
-\begin{frame}{Tài liệu tham khảo (cách đơn giản)}
+\begin{frame}{Checklist trước khi build}
+\begin{itemize}
+  \item Chọn \texttt{aspectratio=169} hoặc \texttt{aspectratio=43} ngay từ đầu.
+  \item Chọn \texttt{theme=blue} hoặc \texttt{theme=red} theo bối cảnh sử dụng.
+  \item Chọn \texttt{logo} đúng đơn vị hoặc ngôn ngữ.
+  \item Chọn \texttt{assetext=pdf} nếu ưu tiên chất lượng vector.
+  \item Kiểm tra các slide có nền riêng để tránh background rò sang slide sau.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Tài liệu tham khảo}
 \small
-\begin{thebibliography}{99}
-  \bibitem{cormen}
-    Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, and Clifford Stein.
-    \newblock \emph{Introduction to Algorithms}.
-    \newblock MIT Press, 3rd edition, 2009.
+\begin{thebibliography}{9}
+  \bibitem{beamer}
+    Till Tantau, Joseph Wright, and Vedran Miletić.
+    \newblock \emph{The Beamer Class User Guide}.
 
-  \bibitem{knuth}
-    Donald E. Knuth.
-    \newblock \emph{The Art of Computer Programming}.
-    \newblock Addison-Wesley.
+  \bibitem{latexmk}
+    John Collins.
+    \newblock \emph{Latexmk: fully automated LaTeX document generation}.
 \end{thebibliography}
-
-\vspace{0.5em}
-\textbf{Gợi ý:} Nếu muốn quản lý tài liệu tham khảo lớn hơn, bạn có thể dùng \texttt{biblatex} + \texttt{biber}.
 \end{frame}
 
-%=============================================
-% SECTION: KẾT LUẬN / THANK YOU
-%=============================================
-\section{Kết luận}
-
-{\HUSTUseBackground{theme_hust_oneside}
-\begin{frame}
-  \ifdefstring{\insertaspectratio}{169}{
-    \placecontent{0.355\paperwidth}{0.410\paperheight}{0.640\paperwidth}{
-        \color{HUSTRed}\bfseries\fontsize{28pt}{36pt}\selectfont\centering
-        THANK YOU!
-    }
-  }{}
-  \ifdefstring{\insertaspectratio}{43}{
-    \placecontent{0.355\paperwidth}{0.440\paperheight}{0.640\paperwidth}{
-        \color{HUSTRed}\bfseries\fontsize{28pt}{36pt}\selectfont\centering
-        THANK YOU!
-    }
-  }{}
-\end{frame}
-}
 {\HUSTUseBackground{theme_hust_oneside}
 \begin{frame}
   \ifdefstring{\insertaspectratio}{169}{
     \placecontent{0.355\paperwidth}{0.320\paperheight}{0.640\paperwidth}{
-        \color{HUSTRed}\bfseries\fontsize{28pt}{36pt}\selectfont\centering
-        CẢM ƠN \\ĐÃ LẮNG NGHE!
+      \color{HUSTRed}\bfseries\fontsize{28pt}{36pt}\selectfont\centering
+      CẢM ƠN\\ĐÃ LẮNG NGHE!
     }
   }{}
   \ifdefstring{\insertaspectratio}{43}{
     \placecontent{0.355\paperwidth}{0.350\paperheight}{0.640\paperwidth}{
-        \color{HUSTRed}\bfseries\fontsize{28pt}{36pt}\selectfont\centering
-        CẢM ƠN \\ĐÃ LẮNG NGHE!
+      \color{HUSTRed}\bfseries\fontsize{26pt}{32pt}\selectfont\centering
+      CẢM ƠN\\ĐÃ LẮNG NGHE!
     }
   }{}
 \end{frame}
