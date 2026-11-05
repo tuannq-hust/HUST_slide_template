@@ -100,6 +100,20 @@ python3 pdf_crop.py --run-default --dry-run
 python3 pdf_crop.py input.pdf output.pdf --page_index 0 --crop_rect 10 10 100 100
 ```
 
+SoICT lock-ups with the HUST 70th-anniversary logo (`assets/logo/soict_vi_h_y70.pdf`,
+`assets/logo/soict_en_h_y70.pdf`) are generated from `soict_{vi,en}_h.pdf` and
+`hustlogo_y70.pdf`. The 70-year logo replaces the BK shield, scaled so that the top of the
+"7" is level with the cap top of the first text line and the logo bottom with the last
+baseline (the arrow tip may rise slightly above). Output stays fully vector:
+
+```bash
+python3 make_y70_logo.py            # writes assets/logo/soict_{vi,en}_h_y70.pdf
+```
+
+```latex
+\HUSTCornerImage[0.13]{assets/logo/soict_en_h_y70.pdf}
+```
+
 ---
 
 ## 🧱 Commands Reference
